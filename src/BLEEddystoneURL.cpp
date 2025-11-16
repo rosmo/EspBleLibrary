@@ -15,7 +15,7 @@
 #include "esp32-hal-log.h"
 #include "BLEEddystoneURL.h"
 
-String EDDYSTONE_URL_PREFIX[] = {
+std::string EDDYSTONE_URL_PREFIX[] = {
   "http://www.",  // 0x00
   "https://www.", // 0x01
   "http://",      // 0x02
@@ -23,7 +23,7 @@ String EDDYSTONE_URL_PREFIX[] = {
   ""              // Any other code number results in empty string
 };
 
-String EDDYSTONE_URL_SUFFIX[] = {
+std::string EDDYSTONE_URL_SUFFIX[] = {
   ".com/",  // 0x00
   ".org/",  // 0x01
   ".edu/",  // 0x02
@@ -67,13 +67,13 @@ BLEEddystoneURL::BLEEddystoneURL(BLEAdvertisedDevice *advertisedDevice){
   _initHeadder();
 }
 
-String BLEEddystoneURL::getData() {
+std::string BLEEddystoneURL::getData() {
   return String((char*) &m_eddystoneData, sizeof(m_eddystoneData));
 } // getData
 
-String BLEEddystoneURL::getFrame() {
+std::string BLEEddystoneURL::getFrame() {
   BLEHeadder[7] = lengthURL + 5; // Fill in real: Type + 2B UUID + Frame Type + Tx power + URL (note: the Byte holding the length does not count itself)
-  String frame(BLEHeadder, sizeof(BLEHeadder));
+  std::string frame(BLEHeadder, sizeof(BLEHeadder));
   frame += String((char*) &m_eddystoneData, lengthURL+1); // + 1 for TX power
 
   return frame;
@@ -88,11 +88,11 @@ int8_t BLEEddystoneURL::getPower() {
   return m_eddystoneData.advertisedTxPower;
 } // getPower
 
-String BLEEddystoneURL::getURL() {
+std::string BLEEddystoneURL::getURL() {
   return String((char*) &m_eddystoneData.url, lengthURL);
 } // getURL
 
-String BLEEddystoneURL::getPrefix(){
+std::string BLEEddystoneURL::getPrefix(){
   if(m_eddystoneData.url[0] <= 0x03){
     return EDDYSTONE_URL_PREFIX[m_eddystoneData.url[0]];
   }else{
@@ -100,7 +100,7 @@ String BLEEddystoneURL::getPrefix(){
   }
 }
 
-String BLEEddystoneURL::getSuffix(){
+std::string BLEEddystoneURL::getSuffix(){
   if(m_eddystoneData.url[lengthURL-1] <= 0x0D){
     return EDDYSTONE_URL_SUFFIX[m_eddystoneData.url[lengthURL-1]];
   }else{
@@ -108,7 +108,7 @@ String BLEEddystoneURL::getSuffix(){
   }
 }
 
-String BLEEddystoneURL::getDecodedURL() {
+std::string BLEEddystoneURL::getDecodedURL() {
   std::string decodedURL = "";
   decodedURL += getPrefix().c_str();
   if(decodedURL.length() == 0){ // No prefix extracted - interpret byte [0] as character
@@ -146,7 +146,7 @@ String BLEEddystoneURL::getDecodedURL() {
  * | Len    || 1 B   | 1 B      | 1 B        | 0-17 B |
  * | Data   || 0x10  | ??       | ??         | ??     |
  */
-void BLEEddystoneURL::setData(String data) {
+void BLEEddystoneURL::setData(std::string data) {
   if (data.length() > sizeof(m_eddystoneData)) {
     log_e("Unable to set the data ... length passed in was %d and max expected %d", data.length(), sizeof(m_eddystoneData));
     return;
@@ -206,7 +206,7 @@ void BLEEddystoneURL::setPower(int8_t advertisedTxPower) {
 // | Length  | 1 B     | 0 - 17 B              |
 // | Example | 0x02    | 0x676F6F676C65 0x07   |
 // | Decoded | http:// |   g o o g l e  .com   |
-void BLEEddystoneURL::setURL(String url) {
+void BLEEddystoneURL::setURL(std::string url) {
   if (url.length() > sizeof(m_eddystoneData.url)) {
   log_e("Unable to set the url ... length passed in was %d and max expected %d", url.length(), sizeof(m_eddystoneData.url));
   return;
@@ -216,9 +216,9 @@ void BLEEddystoneURL::setURL(String url) {
   lengthURL = url.length();
 } // setURL
 
-int BLEEddystoneURL::setSmartURL(String url) {
+int BLEEddystoneURL::setSmartURL(std::string url) {
   if(url.length() == 0){
-    log_e("URL String has 0 length");
+    log_e("URL std::string has 0 length");
     return 0; // ERROR
   }
   for(auto character : url){
@@ -261,7 +261,7 @@ int BLEEddystoneURL::setSmartURL(String url) {
     log_e("Encoded URL is too long %d B - max 18 B", lengthURL);
     return 0; // ERROR
   }
-  String baseUrl = url.substring((hasPrefix ? EDDYSTONE_URL_PREFIX[m_eddystoneData.url[0]].length() : 0), baseUrlLen+(hasPrefix ? EDDYSTONE_URL_PREFIX[m_eddystoneData.url[0]].length() : 0));
+  std::string baseUrl = url.substring((hasPrefix ? EDDYSTONE_URL_PREFIX[m_eddystoneData.url[0]].length() : 0), baseUrlLen+(hasPrefix ? EDDYSTONE_URL_PREFIX[m_eddystoneData.url[0]].length() : 0));
   memcpy((void*)(m_eddystoneData.url+1), (void*)baseUrl.c_str(), baseUrl.length()); // substr for Arduino String
 
   if(hasSuffix){

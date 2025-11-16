@@ -41,12 +41,12 @@ public:
 
 	BLEAddress  getAddress();
 	uint16_t    getAppearance();
-	String getManufacturerData();
-	String getName();
+	std::string getManufacturerData();
+	std::string getName();
 	int         getRSSI();
 	BLEScan*    getScan();
-	String getServiceData();
-	String getServiceData(int i);
+	std::string getServiceData();
+	std::string getServiceData(int i);
 	BLEUUID     getServiceDataUUID();
 	BLEUUID     getServiceDataUUID(int i);
 	BLEUUID     getServiceUUID();
@@ -71,7 +71,7 @@ public:
 	bool        haveServiceUUID();
 	bool        haveTXPower();
 
-	String toString();
+	std::string toString();
 
 private:
 	friend class BLEScan;
@@ -82,11 +82,11 @@ private:
 	void setAdFlag(uint8_t adFlag);
 	void setAdvertizementResult(uint8_t* payload);
 	void setAppearance(uint16_t appearance);
-	void setManufacturerData(String manufacturerData);
-	void setName(String name);
+	void setManufacturerData(std::string manufacturerData);
+	void setName(std::string name);
 	void setRSSI(int rssi);
 	void setScan(BLEScan* pScan);
-	void setServiceData(String data);
+	void setServiceData(std::string data);
 	void setServiceDataUUID(BLEUUID uuid);
 	void setServiceUUID(const char* serviceUUID);
 	void setServiceUUID(BLEUUID serviceUUID);
@@ -103,8 +103,8 @@ private:
 	uint8_t     m_adFlag;
 	uint16_t    m_appearance;
 	int         m_deviceType;
-	String m_manufacturerData;
-	String m_name;
+	std::string m_manufacturerData;
+	std::string m_name;
 	BLEScan*    m_pScan;
 	int         m_rssi;
 	std::vector<BLEUUID> m_serviceUUIDs;

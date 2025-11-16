@@ -28,7 +28,7 @@ class BLEEddystoneTLM {
 public:
   BLEEddystoneTLM();
   BLEEddystoneTLM(BLEAdvertisedDevice *advertisedDevice);
-  String getData();
+  std::string getData();
   BLEUUID   getUUID();
   uint8_t   getVersion();
   uint16_t  getVolt();
@@ -36,8 +36,8 @@ public:
   uint16_t  getRawTemp();
   uint32_t  getCount();
   uint32_t  getTime();
-  String toString();
-  void      setData(String data);
+  std::string toString();
+  void      setData(std::string data);
   void      setUUID(BLEUUID l_uuid);
   void      setVersion(uint8_t version);
   void      setVolt(uint16_t volt);

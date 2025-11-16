@@ -66,7 +66,7 @@ static void memrcpy(uint8_t* target, uint8_t* source, uint32_t size) {
  *
  * @param [in] value The string to build a UUID from.
  */
-BLEUUID::BLEUUID(String value) {
+BLEUUID::BLEUUID(std::string value) {
 	//Serial.printf("BLEUUID constructor from String=\"%s\"\n", value.c_str());
 	m_valueSet = true;
 	if (value.length() == 4) {
@@ -95,7 +95,7 @@ BLEUUID::BLEUUID(String value) {
 			i+=2;
 		}		
 	}
-	else if (value.length() == 16) {  // How we can have 16 byte length string representing 128 bit uuid??? needs to be investigated (lack of time) - maybe raw data encoded as String (128b==16B)?
+	else if (value.length() == 16) {  // How we can have 16 byte length string representing 128 bit uuid??? needs to be investigated (lack of time) - maybe raw data encoded as std::string (128b==16B)?
 		m_uuid.len = ESP_UUID_LEN_128;
 		memrcpy(m_uuid.uuid.uuid128, (uint8_t*)value.c_str(), 16);
 	}
@@ -124,7 +124,7 @@ BLEUUID::BLEUUID(String value) {
 } //BLEUUID(String)
 
 /*
-BLEUUID::BLEUUID(String value) {
+BLEUUID::BLEUUID(std::string value) {
 	this.BLEUUID(String(value.c_str(), value.length()));
 } //BLEUUID(String)
 */
@@ -255,7 +255,7 @@ bool BLEUUID::equals(BLEUUID uuid) {
  * NNNNNNNN
  * <UUID>
  */
-BLEUUID BLEUUID::fromString(String _uuid) {
+BLEUUID BLEUUID::fromString(std::string _uuid) {
 	uint8_t start = 0;
 	if (strstr(_uuid.c_str(), "0x") != nullptr) { // If the string starts with 0x, skip those characters.
 		start = 2;
@@ -357,7 +357,7 @@ BLEUUID BLEUUID::to128() {
  *
  * @return A string representation of the UUID.
  */
-String BLEUUID::toString() {
+std::string BLEUUID::toString() {
 	if (!m_valueSet) return "<NULL>";   // If we have no value, nothing to format.
 	// If the UUIDs are 16 or 32 bit, pad correctly.
 
@@ -388,7 +388,7 @@ String BLEUUID::toString() {
 			m_uuid.uuid.uuid128[5], m_uuid.uuid.uuid128[4],
 			m_uuid.uuid.uuid128[3], m_uuid.uuid.uuid128[2],
 			m_uuid.uuid.uuid128[1], m_uuid.uuid.uuid128[0]);
-	String res(hex);
+	std::string res(hex);
 	free(hex);
 	return res;
 } // toString

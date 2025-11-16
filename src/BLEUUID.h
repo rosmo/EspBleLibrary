@@ -20,7 +20,7 @@
  */
 class BLEUUID {
 public:
-  BLEUUID(String uuid);
+  BLEUUID(std::string uuid);
   BLEUUID(uint16_t uuid);
   BLEUUID(uint32_t uuid);
   BLEUUID(esp_bt_uuid_t uuid);
@@ -31,8 +31,8 @@ public:
   bool           equals(BLEUUID uuid);
   esp_bt_uuid_t* getNative();
   BLEUUID        to128();
-  String         toString();
-  static BLEUUID fromString(String uuid);  // Create a BLEUUID from a string
+  std::string         toString();
+  static BLEUUID fromString(std::string uuid);  // Create a BLEUUID from a string
 
 private:
   esp_bt_uuid_t m_uuid;              // The underlying UUID structure that this class wraps.

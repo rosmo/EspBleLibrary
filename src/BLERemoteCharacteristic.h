@@ -43,16 +43,16 @@ public:
 	BLERemoteService* getRemoteService();
 	uint16_t    getHandle();
 	BLEUUID     getUUID();
-	String readValue();
+	std::string readValue();
 	uint8_t     readUInt8();
 	uint16_t    readUInt16();
 	uint32_t    readUInt32();
 	float       readFloat();
 	void        registerForNotify(notify_callback _callback, bool notifications = true, bool descriptorRequiresRegistration = true);
 	void        writeValue(uint8_t* data, size_t length, bool response = false);
-	void        writeValue(String newValue, bool response = false);
+	void        writeValue(std::string newValue, bool response = false);
 	void        writeValue(uint8_t newValue, bool response = false);
-	String toString();
+	std::string toString();
 	uint8_t*	readRawData();
     void        setAuth(esp_gatt_auth_req_t auth);
 
@@ -77,7 +77,7 @@ private:
 	FreeRTOS::Semaphore  m_semaphoreReadCharEvt      = FreeRTOS::Semaphore("ReadCharEvt");
 	FreeRTOS::Semaphore  m_semaphoreRegForNotifyEvt  = FreeRTOS::Semaphore("RegForNotifyEvt");
 	FreeRTOS::Semaphore  m_semaphoreWriteCharEvt     = FreeRTOS::Semaphore("WriteCharEvt");
-	String          m_value;
+	std::string          m_value;
 	uint8_t 			 *m_rawData;
 	notify_callback		 m_notifyCallback;
 

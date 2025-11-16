@@ -178,7 +178,7 @@ BLEUUID BLECharacteristic::getUUID() {
  * @brief Retrieve the current value of the characteristic.
  * @return A pointer to storage containing the current characteristic value.
  */
-String BLECharacteristic::getValue() {
+std::string BLECharacteristic::getValue() {
 	return m_value.getValue();
 } // getValue
 
@@ -376,7 +376,7 @@ void BLECharacteristic::handleGATTServerEvent(
 					esp_gatt_rsp_t rsp;
 
 					if (param->read.is_long) {
-						String value = m_value.getValue();
+						std::string value = m_value.getValue();
 
 						if (value.length() - m_value.getReadOffset() < maxOffset) {
 							// This is the last in the chain
@@ -397,7 +397,7 @@ void BLECharacteristic::handleGATTServerEvent(
 						// Invoke the read callback.
 						m_pCallbacks->onRead(this, param);
 
-						String value = m_value.getValue();
+						std::string value = m_value.getValue();
 
 						if (value.length() + 1 > maxOffset) {
 							// Too big for a single shot entry.
@@ -679,7 +679,7 @@ void BLECharacteristic::setValue(uint8_t* data, size_t length) {
  * @param [in] Set the value of the characteristic.
  * @return N/A.
  */
-void BLECharacteristic::setValue(String value) {
+void BLECharacteristic::setValue(std::string value) {
 	setValue((uint8_t*)(value.c_str()), value.length());
 } // setValue
 
@@ -751,8 +751,8 @@ void BLECharacteristic::setWriteProperty(bool value) {
  * @brief Return a string representation of the characteristic.
  * @return A string representation of the characteristic.
  */
-String BLECharacteristic::toString() {
-	String res = "UUID: " + m_bleUUID.toString() + ", handle : 0x";
+std::string BLECharacteristic::toString() {
+	std::string res = "UUID: " + m_bleUUID.toString() + ", handle : 0x";
 	char hex[5];
 	snprintf(hex, sizeof(hex), "%04x", m_handle);
 	res += hex;

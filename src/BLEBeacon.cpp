@@ -25,7 +25,7 @@ BLEBeacon::BLEBeacon() {
 	memset(m_beaconData.proximityUUID, 0, sizeof(m_beaconData.proximityUUID));
 } // BLEBeacon
 
-String BLEBeacon::getData() {
+std::string BLEBeacon::getData() {
 	return String((char*) &m_beaconData, sizeof(m_beaconData));
 } // getData
 
@@ -52,7 +52,7 @@ int8_t BLEBeacon::getSignalPower() {
 /**
  * Set the raw data for the beacon record.
  */
-void BLEBeacon::setData(String data) {
+void BLEBeacon::setData(std::string data) {
 	if (data.length() != sizeof(m_beaconData)) {
 		log_e("Unable to set the data ... length passed in was %d and expected %d", data.length(), sizeof(m_beaconData));
 		return;

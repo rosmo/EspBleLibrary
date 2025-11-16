@@ -249,7 +249,7 @@ void BLEDescriptor::setValue(uint8_t* data, size_t length) {
  * @brief Set the value of the descriptor.
  * @param [in] value The value of the descriptor in string form.
  */
-void BLEDescriptor::setValue(String value) {
+void BLEDescriptor::setValue(std::string value) {
   setValue((uint8_t*) value.c_str(), value.length());
 } // setValue
 
@@ -261,10 +261,10 @@ void BLEDescriptor::setAccessPermissions(esp_gatt_perm_t perm) {
  * @brief Return a string representation of the descriptor.
  * @return A string representation of the descriptor.
  */
-String BLEDescriptor::toString() {
+std::string BLEDescriptor::toString() {
   char hex[5];
   snprintf(hex, sizeof(hex), "%04x", m_handle);
-  String res = "UUID: " + m_bleUUID.toString() + ", handle: 0x" + hex;
+  std::string res = "UUID: " + m_bleUUID.toString() + ", handle: 0x" + hex;
   return res;
 } // toString
 

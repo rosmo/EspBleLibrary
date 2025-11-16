@@ -145,7 +145,7 @@ BLERemoteCharacteristic* BLERemoteService::getCharacteristic(BLEUUID uuid) {
   if (!m_haveCharacteristics) {
     retrieveCharacteristics();
   }
-  String v = uuid.toString();
+  std::string v = uuid.toString();
   for (auto &myPair : m_characteristicMap) {
     if (myPair.first == v) {
       return myPair.second;
@@ -297,9 +297,9 @@ BLEUUID BLERemoteService::getUUID() {
 /**
  * @brief Read the value of a characteristic associated with this service.
  */
-String BLERemoteService::getValue(BLEUUID characteristicUuid) {
+std::string BLERemoteService::getValue(BLEUUID characteristicUuid) {
   log_v(">> readValue: uuid: %s", characteristicUuid.toString().c_str());
-  String ret =  getCharacteristic(characteristicUuid)->readValue();
+  std::string ret =  getCharacteristic(characteristicUuid)->readValue();
   log_v("<< readValue");
   return ret;
 } // readValue
@@ -329,7 +329,7 @@ void BLERemoteService::removeCharacteristics() {
  * @param [in] value The value to set.
  * @throws BLEUuidNotFound
  */
-void BLERemoteService::setValue(BLEUUID characteristicUuid, String value) {
+void BLERemoteService::setValue(BLEUUID characteristicUuid, std::string value) {
   log_v(">> setValue: uuid: %s", characteristicUuid.toString().c_str());
   getCharacteristic(characteristicUuid)->writeValue(value);
   log_v("<< setValue");
@@ -340,8 +340,8 @@ void BLERemoteService::setValue(BLEUUID characteristicUuid, String value) {
  * @brief Create a string representation of this remote service.
  * @return A string representation of this remote service.
  */
-String BLERemoteService::toString() {
-  String res = "Service: uuid: " + m_uuid.toString();
+std::string BLERemoteService::toString() {
+  std::string res = "Service: uuid: " + m_uuid.toString();
   char val[6];
   res += ", start_handle: ";
   snprintf(val, sizeof(val), "%d", m_startHandle);

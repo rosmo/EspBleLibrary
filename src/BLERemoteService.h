@@ -42,9 +42,9 @@ public:
 	BLEClient*               getClient(void);                                           // Get a reference to the client associated with this service.
 	uint16_t                 getHandle();                                               // Get the handle of this service.
 	BLEUUID                  getUUID(void);                                             // Get the UUID of this service.
-	String              getValue(BLEUUID characteristicUuid);                      // Get the value of a characteristic.
-	void                     setValue(BLEUUID characteristicUuid, String value);   // Set the value of a characteristic.
-	String              toString(void);
+	std::string              getValue(BLEUUID characteristicUuid);                      // Get the value of a characteristic.
+	void                     setValue(BLEUUID characteristicUuid, std::string value);   // Set the value of a characteristic.
+	std::string              toString(void);
 
 private:
 	// Private constructor ... never meant to be created by a user application.

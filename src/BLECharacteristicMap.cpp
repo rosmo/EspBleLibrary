@@ -118,8 +118,8 @@ void BLECharacteristicMap::setByUUID(BLECharacteristic* pCharacteristic, BLEUUID
  * @brief Return a string representation of the characteristic map.
  * @return A string representation of the characteristic map.
  */
-String BLECharacteristicMap::toString() {
-  String res;
+std::string BLECharacteristicMap::toString() {
+  std::string res;
   int count = 0;
   char hex[5];
   for (auto &myPair: m_uuidMap) {

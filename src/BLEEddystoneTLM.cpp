@@ -41,7 +41,7 @@ BLEEddystoneTLM::BLEEddystoneTLM(BLEAdvertisedDevice *advertisedDevice){
   }
 }
 
-String BLEEddystoneTLM::getData() {
+std::string BLEEddystoneTLM::getData() {
   return String((char*) &m_eddystoneData, sizeof(m_eddystoneData));
 } // getData
 
@@ -73,8 +73,8 @@ uint32_t BLEEddystoneTLM::getTime() {
   return (ENDIAN_CHANGE_U32(m_eddystoneData.tmil)) / 10;
 } // getTime
 
-String BLEEddystoneTLM::toString() {
-  String out = "";
+std::string BLEEddystoneTLM::toString() {
+  std::string out = "";
   uint32_t rawsec = ENDIAN_CHANGE_U32(m_eddystoneData.tmil);
   char val[12];
 
@@ -142,7 +142,7 @@ String BLEEddystoneTLM::toString() {
  * | Len    || 1 B   | 1 B     | 2 B         | 2 B         | 4 B            | 4 B             |
  * | Data   || 0x20  | ??      | ??   | ??   | ??    | ??  |   |   |   |    |   |   |   |     |
  */
-void BLEEddystoneTLM::setData(String data) {
+void BLEEddystoneTLM::setData(std::string data) {
   if (data.length() != sizeof(m_eddystoneData)) {
     log_e("Unable to set the data ... length passed in was %d and expected %d", data.length(), sizeof(m_eddystoneData));
     return;

@@ -87,7 +87,7 @@ void BLERemoteDescriptor::gattClientEventHandler(esp_gattc_cb_event_t event, esp
   }
 }
 
-String BLERemoteDescriptor::readValue() {
+std::string BLERemoteDescriptor::readValue() {
   log_v(">> readValue: %s", toString().c_str());
 
   // Check to see that we are connected.
@@ -110,7 +110,7 @@ String BLERemoteDescriptor::readValue() {
     return "";
   }
 
-  // Block waiting for the event that indicates that the read has completed.  When it has, the String found
+  // Block waiting for the event that indicates that the read has completed.  When it has, the std::string found
   // in m_value will contain our data.
   m_semaphoreReadDescrEvt.wait("readValue");
 
@@ -120,7 +120,7 @@ String BLERemoteDescriptor::readValue() {
 
 
 uint8_t BLERemoteDescriptor::readUInt8() {
-  String value = readValue();
+  std::string value = readValue();
   if (value.length() >= 1) {
     return (uint8_t) value[0];
   }
@@ -129,7 +129,7 @@ uint8_t BLERemoteDescriptor::readUInt8() {
 
 
 uint16_t BLERemoteDescriptor::readUInt16() {
-  String value = readValue();
+  std::string value = readValue();
   if (value.length() >= 2) {
     return *(uint16_t*) value.c_str();
   }
@@ -138,7 +138,7 @@ uint16_t BLERemoteDescriptor::readUInt16() {
 
 
 uint32_t BLERemoteDescriptor::readUInt32() {
-  String value = readValue();
+  std::string value = readValue();
   if (value.length() >= 4) {
     return *(uint32_t*) value.c_str();
   }
@@ -150,10 +150,10 @@ uint32_t BLERemoteDescriptor::readUInt32() {
  * @brief Return a string representation of this BLE Remote Descriptor.
  * @retun A string representation of this BLE Remote Descriptor.
  */
-String BLERemoteDescriptor::toString() {
+std::string BLERemoteDescriptor::toString() {
   char val[6];
   snprintf(val, sizeof(val), "%d", getHandle());
-  String res = "handle: ";
+  std::string res = "handle: ";
   res += val;
   res += ", uuid: " + getUUID().toString();
   return res;
@@ -199,7 +199,7 @@ void BLERemoteDescriptor::writeValue(uint8_t* data, size_t length, bool response
  * @param [in] newValue The data to send to the remote descriptor.
  * @param [in] response True if we expect a response.
  */
-void BLERemoteDescriptor::writeValue(String newValue, bool response) {
+void BLERemoteDescriptor::writeValue(std::string newValue, bool response) {
   writeValue((uint8_t*) newValue.c_str(), newValue.length(), response);
 } // writeValue
 

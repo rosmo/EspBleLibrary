@@ -47,7 +47,7 @@ public:
 	void        setByHandle(uint16_t handle, BLEService* service);
 	void        setByUUID(const char* uuid, BLEService* service);
 	void        setByUUID(BLEUUID uuid, BLEService* service);
-	String toString();
+	std::string toString();
 	BLEService* getFirst();
 	BLEService* getNext();
 	void 		removeService(BLEService *service);

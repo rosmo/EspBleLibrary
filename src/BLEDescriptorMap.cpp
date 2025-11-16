@@ -92,8 +92,8 @@ void BLEDescriptorMap::setByHandle(uint16_t handle, BLEDescriptor* pDescriptor) 
  * @brief Return a string representation of the descriptor map.
  * @return A string representation of the descriptor map.
  */
-String BLEDescriptorMap::toString() {
-	String res;
+std::string BLEDescriptorMap::toString() {
+	std::string res;
 	char hex[5];
 	int count = 0;
 	for (auto &myPair : m_uuidMap) {

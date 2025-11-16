@@ -334,7 +334,7 @@ void BLEAdvertising::setDeviceAddress(esp_bd_addr_t addr, esp_ble_addr_type_t ty
  * @brief Add data to the payload to be advertised.
  * @param [in] data The data to be added to the payload.
  */
-void BLEAdvertisementData::addData(String data) {
+void BLEAdvertisementData::addData(std::string data) {
 	if ((m_payload.length() + data.length()) > ESP_BLE_ADV_DATA_LEN_MAX) {
 		return;
 	}
@@ -419,7 +419,7 @@ void BLEAdvertisementData::setFlags(uint8_t flag) {
  * @brief Set manufacturer specific data.
  * @param [in] data Manufacturer data.
  */
-void BLEAdvertisementData::setManufacturerData(String data) {
+void BLEAdvertisementData::setManufacturerData(std::string data) {
 	log_d("BLEAdvertisementData", ">> setManufacturerData");
 	char cdata[2];
 	cdata[0] = data.length() + 1;
@@ -433,7 +433,7 @@ void BLEAdvertisementData::setManufacturerData(String data) {
  * @brief Set the name.
  * @param [in] The complete name of the device.
  */
-void BLEAdvertisementData::setName(String name) {
+void BLEAdvertisementData::setName(std::string name) {
 	log_d("BLEAdvertisementData", ">> setName: %s", name.c_str());
 	char cdata[2];
 	cdata[0] = name.length() + 1;
@@ -485,7 +485,7 @@ void BLEAdvertisementData::setPartialServices(BLEUUID uuid) {
  * @param [in] uuid The UUID to set with the service data.  Size of UUID will be used.
  * @param [in] data The data to be associated with the service data advert.
  */
-void BLEAdvertisementData::setServiceData(BLEUUID uuid, String data) {
+void BLEAdvertisementData::setServiceData(BLEUUID uuid, std::string data) {
 	char cdata[2];
 	switch (uuid.bitSize()) {
 		case 16: {
@@ -522,7 +522,7 @@ void BLEAdvertisementData::setServiceData(BLEUUID uuid, String data) {
  * @brief Set the short name.
  * @param [in] The short name of the device.
  */
-void BLEAdvertisementData::setShortName(String name) {
+void BLEAdvertisementData::setShortName(std::string name) {
 	log_d("BLEAdvertisementData", ">> setShortName: %s", name.c_str());
 	char cdata[2];
 	cdata[0] = name.length() + 1;
@@ -536,7 +536,7 @@ void BLEAdvertisementData::setShortName(String name) {
  * @brief Retrieve the payload that is to be advertised.
  * @return The payload that is to be advertised.
  */
-String BLEAdvertisementData::getPayload() {
+std::string BLEAdvertisementData::getPayload() {
 	return m_payload;
 } // getPayload
 

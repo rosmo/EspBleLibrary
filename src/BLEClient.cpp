@@ -422,7 +422,7 @@ BLERemoteService* BLEClient::getService(BLEUUID uuid) {
   if (!m_haveServices) {
     getServices();
   }
-  String uuidStr = uuid.toString();
+  std::string uuidStr = uuid.toString();
   for (auto &myPair : m_servicesMap) {
     if (myPair.first == uuidStr) {
       log_v("<< getService: found the service with uuid: %s", uuid.toString().c_str());
@@ -476,9 +476,9 @@ std::map<String, BLERemoteService*>* BLEClient::getServices() {
  * @param [in] characteristicUUID The characteristic whose value we wish to read.
  * @throws BLEUuidNotFound
  */
-String BLEClient::getValue(BLEUUID serviceUUID, BLEUUID characteristicUUID) {
+std::string BLEClient::getValue(BLEUUID serviceUUID, BLEUUID characteristicUUID) {
   log_v(">> getValue: serviceUUID: %s, characteristicUUID: %s", serviceUUID.toString().c_str(), characteristicUUID.toString().c_str());
-  String ret = getService(serviceUUID)->getCharacteristic(characteristicUUID)->readValue();
+  std::string ret = getService(serviceUUID)->getCharacteristic(characteristicUUID)->readValue();
   log_v("<<getValue");
   return ret;
 } // getValue
@@ -539,7 +539,7 @@ void BLEClient::setClientCallbacks(BLEClientCallbacks* pClientCallbacks) {
  * @param [in] characteristicUUID The characteristic whose value we wish to write.
  * @throws BLEUuidNotFound
  */
-void BLEClient::setValue(BLEUUID serviceUUID, BLEUUID characteristicUUID, String value) {
+void BLEClient::setValue(BLEUUID serviceUUID, BLEUUID characteristicUUID, std::string value) {
   log_v(">> setValue: serviceUUID: %s, characteristicUUID: %s", serviceUUID.toString().c_str(), characteristicUUID.toString().c_str());
   getService(serviceUUID)->getCharacteristic(characteristicUUID)->writeValue(value);
   log_v("<< setValue");
@@ -586,8 +586,8 @@ bool BLEClient::setMTU(uint16_t mtu)
  * @brief Return a string representation of this client.
  * @return A string representation of this client.
  */
-String BLEClient::toString() {
-  String res = "peer address: " + m_peerAddress.toString();
+std::string BLEClient::toString() {
+  std::string res = "peer address: " + m_peerAddress.toString();
   res += "\nServices:\n";
   for (auto &myPair : m_servicesMap) {
     res += myPair.second->toString() + "\n";

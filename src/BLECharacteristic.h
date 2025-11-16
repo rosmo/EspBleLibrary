@@ -63,7 +63,7 @@ public:
 	BLEDescriptor* getDescriptorByUUID(const char* descriptorUUID);
 	BLEDescriptor* getDescriptorByUUID(BLEUUID descriptorUUID);
 	BLEUUID        getUUID();
-	String         getValue();
+	std::string         getValue();
 	uint8_t*       getData();
 	size_t         getLength();
 
@@ -75,7 +75,7 @@ public:
 	void setNotifyProperty(bool value);
 	void setReadProperty(bool value);
 	void setValue(uint8_t* data, size_t size);
-	void setValue(String value);
+	void setValue(std::string value);
 	void setValue(uint16_t& data16);
 	void setValue(uint32_t& data32);
 	void setValue(int& data32);
@@ -83,7 +83,7 @@ public:
 	void setValue(double& data64); 
 	void setWriteProperty(bool value);
 	void setWriteNoResponseProperty(bool value);
-	String toString();
+	std::string toString();
 	uint16_t getHandle();
 	void setAccessPermissions(esp_gatt_perm_t perm);
 

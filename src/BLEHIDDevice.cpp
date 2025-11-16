@@ -89,7 +89,7 @@ BLECharacteristic* BLEHIDDevice::manufacturer() {
  * @brief Set manufacturer name
  * @param [in] name manufacturer name
  */
-void BLEHIDDevice::manufacturer(String name) {
+void BLEHIDDevice::manufacturer(std::string name) {
 	m_manufacturerCharacteristic->setValue(name);
 }
 

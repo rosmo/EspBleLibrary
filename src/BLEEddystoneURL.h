@@ -19,8 +19,8 @@
 
 #define EDDYSTONE_URL_FRAME_TYPE 0x10
 
-extern String EDDYSTONE_URL_PREFIX[];
-extern String EDDYSTONE_URL_SUFFIX[];
+extern std::string EDDYSTONE_URL_PREFIX[];
+extern std::string EDDYSTONE_URL_SUFFIX[];
 
 /**
  * @brief Representation of a beacon.
@@ -31,20 +31,20 @@ class BLEEddystoneURL {
 public:
   BLEEddystoneURL();
   BLEEddystoneURL(BLEAdvertisedDevice *advertisedDevice);
-  String   getData();
-  String   getFrame();
+  std::string   getData();
+  std::string   getFrame();
   BLEUUID  getUUID();
   int8_t   getPower();
-  String   getURL();
-  String   getPrefix();
-  String   getSuffix();
-  String   getDecodedURL();
-  void     setData(String data);
+  std::string   getURL();
+  std::string   getPrefix();
+  std::string   getSuffix();
+  std::string   getDecodedURL();
+  void     setData(std::string data);
   void     setUUID(BLEUUID l_uuid);
   void     setPower(int8_t advertisedTxPower);
   void     setPower(esp_power_level_t advertisedTxPower);
-  void     setURL(String url);
-  int      setSmartURL(String url);
+  void     setURL(std::string url);
+  int      setSmartURL(std::string url);
 
 private:
   uint8_t lengthURL; // Describes the length of the URL part including prefix and optional suffix - max 18 B (excluding TX power, frame type and preceding header)

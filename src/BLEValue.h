@@ -20,22 +20,22 @@
 class BLEValue {
 public:
   BLEValue();
-  void      addPart(String part);
+  void      addPart(std::string part);
   void      addPart(uint8_t* pData, size_t length);
   void      cancel();
   void      commit();
   uint8_t*  getData();
   size_t    getLength();
   uint16_t  getReadOffset();
-  String    getValue();
+  std::string    getValue();
   void      setReadOffset(uint16_t readOffset);
-  void      setValue(String value);
+  void      setValue(std::string value);
   void      setValue(uint8_t* pData, size_t length);
 
 private:
-  String    m_accumulation;
+  std::string    m_accumulation;
   uint16_t  m_readOffset;
-  String    m_value;
+  std::string    m_value;
 
 };
 #endif /* CONFIG_BLUEDROID_ENABLED */

@@ -35,7 +35,7 @@ public:
 	BLECharacteristic* getByHandle(uint16_t handle);
 	BLECharacteristic* getFirst();
 	BLECharacteristic* getNext();
-	String toString();
+	std::string toString();
 	void handleGATTServerEvent(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t* param);
 
 private:
@@ -63,7 +63,7 @@ public:
 	BLEServer*         getServer();
 	void               start();
 	void			   stop();
-	String        toString();
+	std::string        toString();
 	uint16_t           getHandle();
 	uint8_t			   m_instId = 0;
 

@@ -44,7 +44,7 @@ public:
   std::map<String, BLERemoteService*>*  getServices();                 // Get a map of the services offered by the remote BLE Server
   BLERemoteService*                     getService(const char* uuid);  // Get a reference to a specified service offered by the remote BLE server.
   BLERemoteService*                     getService(BLEUUID uuid);      // Get a reference to a specified service offered by the remote BLE server.
-  String                                getValue(BLEUUID serviceUUID, BLEUUID characteristicUUID);   // Get the value of a given characteristic at a given service.
+  std::string                                getValue(BLEUUID serviceUUID, BLEUUID characteristicUUID);   // Get the value of a given characteristic at a given service.
 
   void                                  handleGAPEvent(
                                            esp_gap_ble_cb_event_t  event,
@@ -53,9 +53,9 @@ public:
   bool                                  isConnected();                 // Return true if we are connected.
 
   void                                  setClientCallbacks(BLEClientCallbacks *pClientCallbacks);
-  void                                  setValue(BLEUUID serviceUUID, BLEUUID characteristicUUID, String value);   // Set the value of a given characteristic at a given service.
+  void                                  setValue(BLEUUID serviceUUID, BLEUUID characteristicUUID, std::string value);   // Set the value of a given characteristic at a given service.
 
-  String                                toString();                    // Return a string representation of this client.
+  std::string                                toString();                    // Return a string representation of this client.
   uint16_t                              getConnId();
   esp_gatt_if_t                         getGattcIf();
   uint16_t                              getMTU();

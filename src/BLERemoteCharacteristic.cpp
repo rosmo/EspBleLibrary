@@ -339,7 +339,7 @@ uint16_t BLERemoteCharacteristic::getHandle() {
  */
 BLERemoteDescriptor* BLERemoteCharacteristic::getDescriptor(BLEUUID uuid) {
 	log_v(">> getDescriptor: uuid: %s", uuid.toString().c_str());
-	String v = uuid.toString();
+	std::string v = uuid.toString();
 	for (auto &myPair : m_descriptorMap) {
 		if (myPair.first == v) {
 			log_v("<< getDescriptor: found");
@@ -374,7 +374,7 @@ BLEUUID BLERemoteCharacteristic::getUUID() {
  * @return The unsigned 16 bit value.
  */
 uint16_t BLERemoteCharacteristic::readUInt16() {
-	String value = readValue();
+	std::string value = readValue();
 	if (value.length() >= 2) {
 		return *(uint16_t*)(value.c_str());
 	}
@@ -387,7 +387,7 @@ uint16_t BLERemoteCharacteristic::readUInt16() {
  * @return the unsigned 32 bit value.
  */
 uint32_t BLERemoteCharacteristic::readUInt32() {
-	String value = readValue();
+	std::string value = readValue();
 	if (value.length() >= 4) {
 		return *(uint32_t*)(value.c_str());
 	}
@@ -400,7 +400,7 @@ uint32_t BLERemoteCharacteristic::readUInt32() {
  * @return The value as a byte
  */
 uint8_t BLERemoteCharacteristic::readUInt8() {
-	String value = readValue();
+	std::string value = readValue();
 	if (value.length() >= 1) {
 		return (uint8_t)value[0];
 	}
@@ -412,7 +412,7 @@ uint8_t BLERemoteCharacteristic::readUInt8() {
  * @return the float value.
  */
 float BLERemoteCharacteristic::readFloat() {
-	String value = readValue();
+	std::string value = readValue();
 	if (value.length() >= 4) {
 		return *(float*)(value.c_str());
 	}
@@ -423,7 +423,7 @@ float BLERemoteCharacteristic::readFloat() {
  * @brief Read the value of the remote characteristic.
  * @return The value of the remote characteristic.
  */
-String BLERemoteCharacteristic::readValue() {
+std::string BLERemoteCharacteristic::readValue() {
 	log_v(">> readValue(): uuid: %s, handle: %d 0x%.2x", getUUID().toString().c_str(), getHandle(), getHandle());
 
 	// Check to see that we are connected.
@@ -448,7 +448,7 @@ String BLERemoteCharacteristic::readValue() {
 		return "";
 	}
 
-	// Block waiting for the event that indicates that the read has completed.  When it has, the String found
+	// Block waiting for the event that indicates that the read has completed.  When it has, the std::string found
 	// in m_value will contain our data.
 	m_semaphoreReadCharEvt.wait("readValue");
 
@@ -528,10 +528,10 @@ void BLERemoteCharacteristic::removeDescriptors() {
 
 /**
  * @brief Convert a BLERemoteCharacteristic to a string representation;
- * @return a String representation.
+ * @return a std::string representation.
  */
-String BLERemoteCharacteristic::toString() {
-	String res = "Characteristic: uuid: " + m_uuid.toString();
+std::string BLERemoteCharacteristic::toString() {
+	std::string res = "Characteristic: uuid: " + m_uuid.toString();
 	char val[6];
 	res += ", handle: ";
 	snprintf(val, sizeof(val), "%d", getHandle());
@@ -550,7 +550,7 @@ String BLERemoteCharacteristic::toString() {
  * @param [in] response Do we expect a response?
  * @return N/A.
  */
-void BLERemoteCharacteristic::writeValue(String newValue, bool response) {
+void BLERemoteCharacteristic::writeValue(std::string newValue, bool response) {
 	writeValue((uint8_t*)newValue.c_str(), newValue.length(), response);
 } // writeValue
 
