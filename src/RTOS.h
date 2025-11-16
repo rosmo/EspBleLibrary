@@ -8,7 +8,6 @@
 #ifdef __cplusplus
 #ifndef MAIN_FREERTOS_H_
 #define MAIN_FREERTOS_H_
-#include "Arduino.h"
 #include <stdint.h>
 #include <pthread.h>
 
